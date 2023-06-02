@@ -11,7 +11,7 @@ import {
 //COMBINING ALL REDUCERS
 const reducer = {
   cart: cartReducer,
-  user: userReducer
+  user: userReducer,
 }
 
 const rootReducer = combineReducers({

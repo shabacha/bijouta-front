@@ -1,7 +1,37 @@
+import { useState } from 'react';
 import Layout from '../layouts/Main';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { registerUser } from 'store/apiCalls/authAPI';
+import { useRouter } from 'next/router';
 
-const RegisterPage = () => (
+const RegisterPage = () => {
+  const [user,setUser] = useState('')
+  const [password,setPassword] = useState('')
+  const [name,setName] = useState('')
+  // const [lastName,setLastName] = useState('')
+  const [email,setEmail] = useState('')
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleSubmit = async (e:any) => {
+    e.preventDefault()
+    try {
+      dispatch(registerUser({username:user,password:password,name:name,email:email,router}))
+      setUser('')
+      setPassword('')
+      setName('')
+      setEmail('')
+    }catch(err:any){
+     console.log("Error register : ",err)
+    }
+   }
+  const handleUserInput = (e:any) => setUser(e.target.value)
+  const handlePwdInput = (e:any) => setPassword(e.target.value)
+  const handleNameInput = (e:any) => setName(e.target.value)
+ const handleEmailInput = (e:any) => setEmail(e.target.value)
+
+
+  return(
   <Layout>
     <section className="form-page">
       <div className="container">
@@ -16,21 +46,29 @@ const RegisterPage = () => (
           <p className="form-block__description">Lorem Ipsum is simply dummy text of the printing 
           and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
           
-          <form className="form">
+          <form className="form" onSubmit={handleSubmit}>
             <div className="form__input-row">
-              <input className="form__input" placeholder="First Name" type="text" />
+              <input className="form__input" placeholder="First Name" type="text"   value={name}
+                  onChange={handleNameInput}/>
+            </div>
+            
+            {/* <div className="form__input-row">
+              <input className="form__input" placeholder="Last Name" type="text"   value={lastName}
+                  onChange={handleLastNameInput}/>
+            </div> */}
+            <div className="form__input-row">
+              <input className="form__input" placeholder="User name" type="text"   value={user}
+                  onChange={handleUserInput}/>
             </div>
             
             <div className="form__input-row">
-              <input className="form__input" placeholder="Last Name" type="text" />
+              <input className="form__input" placeholder="Email" type="text"   value={email}
+                  onChange={handleEmailInput}/>
             </div>
             
             <div className="form__input-row">
-              <input className="form__input" placeholder="Email" type="text" />
-            </div>
-            
-            <div className="form__input-row">
-              <input className="form__input" type="Password" placeholder="Password" />
+              <input className="form__input" type="Password" placeholder="Password"   value={password}
+                  onChange={handlePwdInput} />
             </div>
 
             <div className="form__info">
@@ -43,7 +81,7 @@ const RegisterPage = () => (
               </div>
             </div>
 
-            <button type="button" className="btn btn--rounded btn--yellow btn-submit">Sign up</button>
+            <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Sign up</button>
 
             <p className="form__signup-link">
               <Link href="/login">
@@ -56,7 +94,8 @@ const RegisterPage = () => (
       </div>
     </section>
   </Layout>
-)
+  )
+  }
   
 export default RegisterPage
   

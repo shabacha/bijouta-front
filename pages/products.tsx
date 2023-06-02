@@ -4,7 +4,8 @@ import Breadcrumb from '../components/breadcrumb';
 import ProductsFilter from '../components/products-filter';
 import ProductsContent from '../components/products-content';
 
-const Products = () => (
+const Products = () => {
+  return (
   <Layout>
     <Breadcrumb />
     <section className="products-page">
@@ -15,7 +16,8 @@ const Products = () => (
     </section>
     <Footer />
   </Layout>
-)
+  )
+}
   
 export default Products
   

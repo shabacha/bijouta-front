@@ -1,26 +1,46 @@
 import Layout from '../layouts/Main';
 import Link from 'next/link';
-import { useForm } from "react-hook-form";
-import { server } from '../utils/server'; 
-import { postData } from '../utils/services'; 
-
-type LoginMail = {
-  email: string;
-  password: string;
-}
-
+import {useRef,useState,useEffect} from 'react'
+import { useDispatch } from 'react-redux';
+import {loginUser} from "../store/apiCalls/authAPI"
+import { useRouter } from 'next/router';
 const LoginPage = () => {
-  const { register, handleSubmit, errors } = useForm();
-
-  const onSubmit = async (data: LoginMail) => {
-    const res = await postData(`${server}/api/login`, {
-      email: data.email,
-      password: data.password
-    });
-
-    console.log(res);
-  };
-
+  const userRef = useRef()
+  const errRef = useRef()
+  const [user,setUser] = useState('')
+  const [password,setPassword] = useState('')
+  const [errMsg,setErrMsg] = useState('')
+  const dispatch = useDispatch();
+  const router = useRouter();
+  useEffect(()=>{
+    //@ts-ignore
+    userRef.current?.focus()
+  },[])
+  useEffect(()=>{
+    setErrMsg('')
+  },[user,password])
+ const handleSubmit = async (e:any) => {
+  e.preventDefault()
+  try {
+    dispatch(loginUser({username:user,password:password,router}))
+    setUser('')
+    setPassword('')
+  }catch(err:any){
+    if (!err.response) {
+      setErrMsg('No server response')
+    }else if (err.originalStatus === 400){
+      setErrMsg('Missing Username or Password')
+    }else if (err.originalStatus === 401){
+      setErrMsg('Unathorized')
+    }else{
+      setErrMsg('Login Failed');
+    }
+    //@ts-ignore
+    errRef.current?.focus();
+  }
+ }
+ const handleUserInput = (e:any) => setUser(e.target.value)
+ const handlePwdInput = (e:any) => setPassword(e.target.value)
   return (
     <Layout>
       <section className="form-page">
@@ -36,26 +56,17 @@ const LoginPage = () => {
             <p className="form-block__description">Lorem Ipsum is simply dummy text of the printing and typesetting 
             industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
             
-            <form className="form" onSubmit={handleSubmit(onSubmit)}>
+            <form className="form" onSubmit={handleSubmit}>
               <div className="form__input-row">
                 <input 
                   className="form__input" 
-                  placeholder="email" 
+                  placeholder="username" 
                   type="text" 
-                  name="email"
-                  ref={register({
-                    required: true,
-                    pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  })}
+                  name="username"
+                  ref={userRef}
+                  value={user}
+                  onChange={handleUserInput}
                 />
-
-                {errors.email && errors.email.type === 'required' && 
-                  <p className="message message--error">This field is required</p>
-                }
-
-                {errors.email && errors.email.type === 'pattern' && 
-                  <p className="message message--error">Please write a valid email</p>
-                }
               </div>
               
               <div className="form__input-row">
@@ -64,11 +75,9 @@ const LoginPage = () => {
                   type="password" 
                   placeholder="Password" 
                   name="password"
-                  ref={register({ required: true })}
+                  onChange={handlePwdInput}
+                  value={password}
                 />
-                {errors.password && errors.password.type === 'required' && 
-                  <p className="message message--error">This field is required</p>
-                }
               </div>
 
               <div className="form__info">
@@ -78,7 +87,6 @@ const LoginPage = () => {
                       type="checkbox" 
                       name="keepSigned" 
                       id="check-signed-in" 
-                      ref={register({ required: false })}
                     />
                     <span className="checkbox__check"></span>
                     <p>Keep me signed in</p>
