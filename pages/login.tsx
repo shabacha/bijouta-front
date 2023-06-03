@@ -1,46 +1,46 @@
 import Layout from '../layouts/Main';
 import Link from 'next/link';
-import {useRef,useState,useEffect} from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import {loginUser} from "../store/apiCalls/authAPI"
+import { login } from "../store/reducers/auth"
 import { useRouter } from 'next/router';
 const LoginPage = () => {
   const userRef = useRef()
   const errRef = useRef()
-  const [user,setUser] = useState('')
-  const [password,setPassword] = useState('')
-  const [errMsg,setErrMsg] = useState('')
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+  const [errMsg, setErrMsg] = useState('')
   const dispatch = useDispatch();
   const router = useRouter();
-  useEffect(()=>{
+  useEffect(() => {
     //@ts-ignore
     userRef.current?.focus()
-  },[])
-  useEffect(()=>{
+  }, [])
+  useEffect(() => {
     setErrMsg('')
-  },[user,password])
- const handleSubmit = async (e:any) => {
-  e.preventDefault()
-  try {
-    dispatch(loginUser({username:user,password:password,router}))
-    setUser('')
-    setPassword('')
-  }catch(err:any){
-    if (!err.response) {
-      setErrMsg('No server response')
-    }else if (err.originalStatus === 400){
-      setErrMsg('Missing Username or Password')
-    }else if (err.originalStatus === 401){
-      setErrMsg('Unathorized')
-    }else{
-      setErrMsg('Login Failed');
+  }, [user, password])
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    try {
+      dispatch(login({ username: user, password: password }))
+      setUser('')
+      setPassword('')
+    } catch (err: any) {
+      if (!err.response) {
+        setErrMsg('No server response')
+      } else if (err.originalStatus === 400) {
+        setErrMsg('Missing Username or Password')
+      } else if (err.originalStatus === 401) {
+        setErrMsg('Unathorized')
+      } else {
+        setErrMsg('Login Failed');
+      }
+      //@ts-ignore
+      errRef.current?.focus();
     }
-    //@ts-ignore
-    errRef.current?.focus();
   }
- }
- const handleUserInput = (e:any) => setUser(e.target.value)
- const handlePwdInput = (e:any) => setPassword(e.target.value)
+  const handleUserInput = (e: any) => setUser(e.target.value)
+  const handlePwdInput = (e: any) => setPassword(e.target.value)
   return (
     <Layout>
       <section className="form-page">
@@ -53,27 +53,27 @@ const LoginPage = () => {
 
           <div className="form-block">
             <h2 className="form-block__title">Log in</h2>
-            <p className="form-block__description">Lorem Ipsum is simply dummy text of the printing and typesetting 
-            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-            
+            <p className="form-block__description">Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+
             <form className="form" onSubmit={handleSubmit}>
               <div className="form__input-row">
-                <input 
-                  className="form__input" 
-                  placeholder="username" 
-                  type="text" 
+                <input
+                  className="form__input"
+                  placeholder="username"
+                  type="text"
                   name="username"
                   ref={userRef}
                   value={user}
                   onChange={handleUserInput}
                 />
               </div>
-              
+
               <div className="form__input-row">
-                <input 
-                  className="form__input" 
-                  type="password" 
-                  placeholder="Password" 
+                <input
+                  className="form__input"
+                  type="password"
+                  placeholder="Password"
                   name="password"
                   onChange={handlePwdInput}
                   value={password}
@@ -83,10 +83,10 @@ const LoginPage = () => {
               <div className="form__info">
                 <div className="checkbox-wrapper">
                   <label htmlFor="check-signed-in" className={`checkbox checkbox--sm`}>
-                    <input 
-                      type="checkbox" 
-                      name="keepSigned" 
-                      id="check-signed-in" 
+                    <input
+                      type="checkbox"
+                      name="keepSigned"
+                      id="check-signed-in"
                     />
                     <span className="checkbox__check"></span>
                     <p>Keep me signed in</p>
@@ -111,6 +111,5 @@ const LoginPage = () => {
     </Layout>
   )
 }
-  
+
 export default LoginPage
-  
