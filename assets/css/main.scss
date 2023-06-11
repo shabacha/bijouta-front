@@ -239,8 +239,7 @@ h1,h2,h3,h4,h5 {
     object-fit: contain;
     margin-right: 15px;
     @include breakpoint(phone) {
-      width: 45px;
-      height: 35px;
+      width: 90px;
     }
   }
 }
@@ -267,13 +266,14 @@ h1,h2,h3,h4,h5 {
 }
 
 .site-header {
+  background-color: #FFF;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 999;
   height: 65px;
-  color: #FFF;
+  color: #000;
   box-shadow: none;
   transition: all .3s ease;
   @include breakpoint(phone) {
@@ -281,7 +281,7 @@ h1,h2,h3,h4,h5 {
   }
   .btn-hamburger {
     &:before, &:after, span {
-      background-color: #FFF;
+      background-color: #000;
     }
   }
   .container {
@@ -317,7 +317,7 @@ h1,h2,h3,h4,h5 {
       }
     }
     i {
-      color: #FFF;
+      color: #000;
       z-index: 10;
       transition: all .3s ease;
       position: relative;

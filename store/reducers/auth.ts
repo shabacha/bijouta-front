@@ -9,7 +9,7 @@ const initialState = {
 }
 export const register = createAsyncThunk('register',async(body)=>{
    try {
-    const res = await axios.post("https://malahbecha-tunnel-8008.webtv-solution.dev/auth/register", body);
+    const res = await axios.post("http://localhost:8080/auth/register", body);
     console.log("res", res?.data);
   } catch (error) {
     console.log("error is: ", error);
@@ -17,7 +17,7 @@ export const register = createAsyncThunk('register',async(body)=>{
 })
 export const login = createAsyncThunk('login',async(body)=>{
    try {
-    const res = await axios.post("https://malahbecha-tunnel-8008.webtv-solution.dev/auth/login", body);
+    const res = await axios.post("http://localhost:8080/auth/login", body);
     console.log("res", res?.data);
   } catch (error) {
     console.log("error is: ", error);
