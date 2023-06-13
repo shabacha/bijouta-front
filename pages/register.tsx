@@ -14,14 +14,15 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
+    console.log('handleSubmit')
+    e.preventDefault();
     try {
       dispatch(register({ username: user, password: password, name: name, email: email }))
       setUser('')
       setPassword('')
       setName('')
       setEmail('')
-      router.push('/')
+      /* router.push('/') */
     } catch (err: any) {
       console.log("Error register : ", err)
     }
