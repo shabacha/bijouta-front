@@ -6,15 +6,12 @@ const Footer = () => {
       <div className="container">
         <div className="site-footer__top">
           <div className="site-footer__description">
-            <h6><Logo /> <span>E</span>-Shop</h6>
-            <p>House My Brand designs clothing for the young, the old & everyone in between – but most 
+            <h6><Logo /></h6>
+            <p>House My Brand designs clothing for the young, the old & everyone in between – but most
               importantly, for the fashionable</p>
             <ul className="site-footer__social-networks">
               <li><a href="#"><i className="icon-facebook"></i></a></li>
-              <li><a href="#"><i className="icon-twitter"></i></a></li>
-              <li><a href="#"><i className="icon-linkedin"></i></a></li>
               <li><a href="#"><i className="icon-instagram"></i></a></li>
-              <li><a href="#"><i className="icon-youtube-play"></i></a></li>
             </ul>
           </div>
 
@@ -43,10 +40,10 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="site-footer__bottom">
         <div className="container">
-          <p>DESIGN BY ICEO.CO - © 2019. ALL RIGHTS RESERVED.</p>
+          <p>DESIGN BY BIJOUTA - © 2023. ALL RIGHTS RESERVED.</p>
         </div>
       </div>
     </footer>

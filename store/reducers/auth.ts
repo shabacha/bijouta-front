@@ -1,6 +1,5 @@
 import {createSlice,createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios";
-import { log } from "console";
 const initialState = {
   message: "",
   user:"",
@@ -8,14 +7,6 @@ const initialState = {
   loading:false,
   error:""
 }
-export const register1 = (body:any) => createAsyncThunk('register',async(data)=>{
-   try {
-    const res = await axios.post("http://localhost:8080/auth/register", body);
-    console.log("res", res?.data);
-  } catch (error) {
-    console.log("error is: ", error);
-  }
-})
 export const register = createAsyncThunk<Response, any>(
   'register',
   async (payload) => {
