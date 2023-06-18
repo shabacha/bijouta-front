@@ -95,11 +95,6 @@ const LoginPage = () => {
                 <a href="/forgot-password" className="form__info__forgot-password">Forgot password?</a>
               </div>
 
-              <div className="form__btns">
-                <button type="button" className="btn-social fb-btn"><i className="icon-facebook"></i>Facebook</button>
-                <button type="button" className="btn-social google-btn"><img src="/images/icons/gmail.svg" alt="gmail" /> Gmail</button>
-              </div>
-
               <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Sign in</button>
 
               <p className="form__signup-link">Not a member yet? <a href="/register">Sign up</a></p>

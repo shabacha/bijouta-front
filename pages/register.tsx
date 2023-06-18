@@ -73,16 +73,7 @@ const RegisterPage = () => {
                   onChange={handlePwdInput} />
               </div>
 
-              <div className="form__info">
-                <div className="checkbox-wrapper">
-                  <label htmlFor="check-signed-in" className={`checkbox checkbox--sm`}>
-                    <input name="signed-in" type="checkbox" id="check-signed-in" />
-                    <span className="checkbox__check"></span>
-                    <p>I agree to the Google Terms of Service and Privacy Policy</p>
-                  </label>
-                </div>
-              </div>
-
+            
               <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Sign up</button>
 
               <p className="form__signup-link">
