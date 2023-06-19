@@ -24,7 +24,7 @@ export type ProductType = {
   count: number;
   color: string;
   size: string;
-  images: string[];
+  images: string;
   discount?: string;
   currentPrice: number;
   punctuation: PunctuationType;
@@ -44,7 +44,7 @@ export type ProductStoreType = {
   id: string;
   name: string;
   thumb: string;
-  price: number;
+  price: string;
   count: number;
   color: string;
   size: string;

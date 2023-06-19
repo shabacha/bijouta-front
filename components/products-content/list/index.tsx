@@ -19,6 +19,7 @@ const ProductsContent = () => {
         {products && (
             <section className="products-list">
               {products.map((item:any) => (
+
                   <ProductItem
                       id={item.id}
                       title={item.title}
@@ -26,7 +27,8 @@ const ProductsContent = () => {
                       quantity={item.quantity}
                       description={item.description}
                       key={item.id}
-                      images={item.images}
+                      images={JSON.parse(item.images)}
+
                   />
               ))}
             </section>

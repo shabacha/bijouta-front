@@ -1,5 +1,6 @@
 import {createSlice,createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios";
+import Router from "next/router";
 const initialState = {
   message: "",
   user:"",
@@ -25,7 +26,7 @@ export const login = createAsyncThunk<Response, any>(
     try {
       const res = await axios.post("http://localhost:8080/auth/login", payload);
       console.log("res login = ", res?.data);
-      return res.data?.token
+      return res.data
     } catch (error: any) {
       return error;
     }
@@ -50,7 +51,6 @@ const authSlice = createSlice({
       },
       [register.fulfilled]:(state,action) => {
         state.loading = false
-        state.token = action.payload.token
       },
       [register.rejected]:(state,action) => {
         state.loading = true
@@ -63,8 +63,13 @@ const authSlice = createSlice({
         if (action.payload.error) {
           state.error = action.payload.error
         }else{
+          console.log("action.payload = ",action.payload)
           state.message = action.payload.message
           state.token = action.payload.token
+          localStorage.setItem("token",action.payload.token)
+          state.user = action.payload.user
+          Router.push("/")
+         
         }
       },
       [login.rejected]:(state,action) => {

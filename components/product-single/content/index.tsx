@@ -34,11 +34,13 @@ const Content = ({ product }: ProductContent) => {
   }
 
   const addToCart = () => {
+    console.log(product.images);
+    
     const productToSave: ProductStoreType = { 
       id: product.id,
       name: product.name,
-      thumb: product.images ? product.images[0] : '',
-      price: product.currentPrice,
+      thumb: product.images ? JSON.parse(product.images) : '',
+      price: product.price,
       count: count,
       color: color,
       size: itemSize
@@ -60,7 +62,7 @@ const Content = ({ product }: ProductContent) => {
         <h2 className="product__name">{product.name}</h2>
 
         <div className="product__prices">
-          <h4>${ product.currentPrice }</h4>
+          <h4>${ product.price }</h4>
           {product.discount &&
             <span>${ product.price }</span>
           }

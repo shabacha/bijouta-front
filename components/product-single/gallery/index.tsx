@@ -1,9 +1,9 @@
 type GalleryProductType = {
-  images: string[]
+  images: string
 }
 
 const Gallery = ({ images }: GalleryProductType) => {
-  const featImage = images[0];
+  const featImage = JSON.parse(images)[0];
 
   return (
     <section className="product-gallery">

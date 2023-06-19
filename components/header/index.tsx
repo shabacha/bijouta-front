@@ -86,7 +86,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
           {
   token ? (
     <button className="site-header__btn-avatar">
-      <img src={s} alt="User Avatar" className="user-avatar" />
+      <img src={"https://static1.srcdn.com/wordpress/wp-content/uploads/naruto.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5"} alt="User Avatar" className="user-avatar" />
     </button>
   ) : (
     <Link href="/login">
