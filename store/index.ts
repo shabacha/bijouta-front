@@ -3,6 +3,7 @@ import { createWrapper } from "next-redux-wrapper";
 import cartReducer from "./reducers/cart";
 import userReducer from "./reducers/user";
 import productReducer from "./reducers/product"
+import authReducer from "./reducers/auth";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 
@@ -11,12 +12,14 @@ const reducer = {
   cart: cartReducer,
   user: userReducer,
   product: productReducer,
+  auth: authReducer,
 };
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   user: userReducer,
   product: productReducer,
+  auth: authReducer,
 });
 
 let store = configureStore({

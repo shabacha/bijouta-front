@@ -3,7 +3,7 @@ import axios from "axios";
 const initialState = {
   message: "",
   user:"",
-  token:"",
+  token:null,
   loading:false,
   error:""
 }
@@ -13,7 +13,6 @@ export const register = createAsyncThunk<Response, any>(
     console.log('payload', payload)
     try {
       const res = await axios.post("http://localhost:8080/auth/register", payload);
-      console.log("res register = ", res?.data);
     } catch (error: any) {
       return error;
     }
@@ -32,14 +31,6 @@ export const login = createAsyncThunk<Response, any>(
     }
   }
 );
-export const login1 = (body: any) => createAsyncThunk('login', async(data)=>{
-   try {
-    const res = await axios.post("http://localhost:8080/auth/login", body);
-    console.log("res", res?.data);
-  } catch (error) {
-    console.log("error is: ", error);
-  }
-})
 
 const authSlice = createSlice({
     name:"auth",
@@ -57,14 +48,9 @@ const authSlice = createSlice({
       [register.pending]:(state,action) => {
         state.loading = true
       },
-      [register.fulfilled]:(state,payload) => {
+      [register.fulfilled]:(state,action) => {
         state.loading = false
-        // if (error) {
-        //   state.error = error
-        // }else{
-        //   state.message = message
-        // }
-        console.log("payload = ",payload)
+        state.token = action.payload.token
       },
       [register.rejected]:(state,action) => {
         state.loading = true
@@ -72,15 +58,13 @@ const authSlice = createSlice({
       [login.pending]:(state,action) => {
         state.loading = true
       },
-      [login.fulfilled]:(state,{payload:{error,message,token,user}}) => {
+      [login.fulfilled]:(state,action) => {
         state.loading = false
-        if (error) {
-          state.error = error
+        if (action.payload.error) {
+          state.error = action.payload.error
         }else{
-          state.message = message
-          state.token = token
-          state.user = user
-          localStorage.setItem("token",token)
+          state.message = action.payload.message
+          state.token = action.payload.token
         }
       },
       [login.rejected]:(state,action) => {

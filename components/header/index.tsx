@@ -20,6 +20,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef(null);
   const searchRef = useRef(null);
+  const { token } = useSelector((state: RootState) => state.auth);
 
   const headerClass = () => {
     if(window.pageYOffset === 0) {
@@ -82,9 +83,19 @@ const Header = ({ isErrorPage }: HeaderType) => {
               }
             </button>
           </Link>
-          <Link href="/login">
-            <button className="site-header__btn-avatar"><i className="icon-avatar"></i></button>
-          </Link>
+          {
+  token ? (
+    <button className="site-header__btn-avatar">
+      <img src={s} alt="User Avatar" className="user-avatar" />
+    </button>
+  ) : (
+    <Link href="/login">
+      <button className="site-header__btn-avatar">
+        <i className="icon-avatar"></i>
+      </button>
+    </Link>
+  )
+}
           <button 
             onClick={() => setMenuOpen(true)} 
             className="site-header__btn-menu">
