@@ -358,6 +358,7 @@ h1,h2,h3,h4,h5 {
   }
   .site-header__btn-avatar {
     display: none;
+    background-color: #fff;
     @include breakpoint(tablet-lg) {
       display: block;
     }

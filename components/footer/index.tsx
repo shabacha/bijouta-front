@@ -34,8 +34,8 @@ const Footer = () => {
             </ul>
             <ul>
               <li>Contact</li>
-              <li><a href="#">store@uikit.com</a></li>
-              <li><a href="#">Hotline: +1 131 138 138</a></li>
+              <li><a href="#">bijouta</a></li>
+              <li><a href="#">Phone: +216 99887755</a></li>
             </ul>
           </div>
         </div>

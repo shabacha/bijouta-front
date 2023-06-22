@@ -11,6 +11,8 @@ type HeaderType = {
   isErrorPage?: Boolean;
 }
 const Header = ({ isErrorPage }: HeaderType) => {
+  const [token, setToken] = useState(null);
+
   const router = useRouter();
   const { cartItems } = useSelector((state: RootState)  => state.cart);
   const arrayPaths = ['/'];  
@@ -20,8 +22,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef(null);
   const searchRef = useRef(null);
-  const { token } = useSelector((state: RootState) => state.auth);
-
+  
   const headerClass = () => {
     if(window.pageYOffset === 0) {
       setOnTop(true);
@@ -34,6 +35,8 @@ const Header = ({ isErrorPage }: HeaderType) => {
     if(!arrayPaths.includes(router.pathname) || isErrorPage) {
       return;
     }
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
 
     headerClass();
     window.onscroll = function() {
@@ -48,7 +51,6 @@ const Header = ({ isErrorPage }: HeaderType) => {
   const closeSearch = () => {
     setSearchOpen(false);
   }
-
   // on click outside
   useOnClickOutside(navRef, closeMenu);
   useOnClickOutside(searchRef, closeSearch);
@@ -91,7 +93,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
   </button>
   <div className="dropdown-content">
     <a href="#">Profile</a>
-    <a href="#">Logout</a>
+    <a href="/login" onClick={() => { localStorage.removeItem('token'); }}>Logout</a>
   </div>
 </div>
 

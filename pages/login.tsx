@@ -15,6 +15,7 @@ const LoginPage = () => {
   useEffect(() => {
     //@ts-ignore
     userRef.current?.focus()
+
   }, [])
   useEffect(() => {
     setErrMsg('')
@@ -56,7 +57,7 @@ const LoginPage = () => {
             <p className="form-block__description">Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
 
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form">
               <div className="form__input-row">
                 <input
                   className="form__input"
@@ -95,7 +96,7 @@ const LoginPage = () => {
                 <a href="/forgot-password" className="form__info__forgot-password">Forgot password?</a>
               </div>
 
-              <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Sign in</button>
+              <button type="submit"  onClick={handleSubmit}className="btn btn--rounded btn--yellow btn-submit">Sign in</button>
 
               <p className="form__signup-link">Not a member yet? <a href="/register">Sign up</a></p>
             </form>
