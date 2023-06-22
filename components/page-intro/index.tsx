@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {EffectFade, Navigation} from 'swiper';
-
+import Link from 'next/link';
 SwiperCore.use([EffectFade, Navigation]);
 
 const PageIntro = () => {
@@ -13,7 +13,6 @@ const PageIntro = () => {
             <div className="container">
               <div className="page-intro__slide__content">
                 <h2>Sale of the summer collection</h2>
-                <a href="/products" className="btn-shop"><i className="icon-right"></i>Shop now</a>
               </div>
             </div>
           </div>

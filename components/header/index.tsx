@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { RootState } from 'store';
 
+
 type HeaderType = {
   isErrorPage?: Boolean;
 }
-
 const Header = ({ isErrorPage }: HeaderType) => {
   const router = useRouter();
   const { cartItems } = useSelector((state: RootState)  => state.cart);
@@ -83,11 +83,18 @@ const Header = ({ isErrorPage }: HeaderType) => {
               }
             </button>
           </Link>
-          {
+  {
   token ? (
-    <button className="site-header__btn-avatar">
-      <img src={"https://static1.srcdn.com/wordpress/wp-content/uploads/naruto.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5"} alt="User Avatar" className="user-avatar" />
-    </button>
+    <div className="dropdown">
+  <button className="dropbtn">
+    <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/naruto.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5" alt="User Avatar" class="user-avatar" />
+  </button>
+  <div className="dropdown-content">
+    <a href="#">Profile</a>
+    <a href="#">Logout</a>
+  </div>
+</div>
+
   ) : (
     <Link href="/login">
       <button className="site-header__btn-avatar">
